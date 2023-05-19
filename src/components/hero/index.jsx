@@ -13,7 +13,7 @@ const HeroSection = () => {
 
   const sortAndSliceWebtoonList = () => {
     const sortedList = webtoonList.sort((a, b) => b.title.localeCompare(a.title))
-    const slicedList = sortedList.slice(0, 5)
+    const slicedList = sortedList.slice(0, 3)
     setSlicedWebtoonList(slicedList)
   }
 

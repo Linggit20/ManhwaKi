@@ -2,7 +2,8 @@ import React from 'react'
 import Header from '../../components/header'
 import HeroSection from '../../components/hero'
 import PopularToday from '../../components/popular_today'
-
+import WebtoonList from '../../components/webtoon_list'
+import PopularWebtoon from '../../components/popular_webtoon'
 const Home = () => {
   return (
     <>
@@ -11,9 +12,10 @@ const Home = () => {
         <main className='lg:w-[70%]'>
           <HeroSection />
           <PopularToday />
+          <WebtoonList />
         </main>
         <aside className='hidden lg:block w-[30%] rounded-md'>
-          test
+          <PopularWebtoon />
         </aside>
       </div>
     </>
