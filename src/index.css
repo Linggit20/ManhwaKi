@@ -8,3 +8,14 @@
     font-family: 'Poppins', sans-serif;
   }
 }
+
+.chapter-list::-webkit-scrollbar {
+  display: block;
+  width: .4rem;
+}
+
+.chapter-list::-webkit-scrollbar-thumb {
+  background-color: #2493fa;
+  border-radius: .4rem;
+  height: 6rem; 
+}

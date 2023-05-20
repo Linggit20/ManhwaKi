@@ -32,7 +32,7 @@ const Navbar = () => {
           </Link>
         </div>
         <SearchForm searchExpand={searchExpand} searchWidth={searchWidth}/>
-        <div className={`fixed container mx-auto top-0 h-full right-0 left-0 mt-16 ${navClass} bg-bg-300 z-50 bg-opacity-95`}>
+        <div className={`fixed container mx-auto top-0 h-full right-0 left-0 pt-16 ${navClass} bg-bg-300 z-20 bg-opacity-95`}>
           <ul className='flex flex-col mt-3 px-4 text-t-white'>
             <li>
               <Link to='/' className='p-3 rounded-md transition-colors duration-300 hover:bg-bg-100 block'>Home</Link>

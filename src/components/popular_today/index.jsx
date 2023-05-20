@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { fetchWebtoonLists } from '../../hooks/fetchWebtoonList'
+import { Link } from 'react-router-dom'
 
 const PopularToday = () => {
-  const {fetchData, webtoonList} = fetchWebtoonLists()
+  const {fetchData, webtoonList, isLoading} = fetchWebtoonLists()
   const [slicedWebtoonList, setSlicedWebtoonList] = useState([])
 
   const handleSliceWebtoonList = () => {
@@ -24,6 +25,15 @@ const PopularToday = () => {
     handleSliceWebtoonList()
   }, [webtoonList])
 
+  const handleGetWebtoonInfo = (titleSlug, title) => {
+    const data = {
+      titleSlug,
+      title
+    }
+
+    localStorage.setItem('webtoonInfo', JSON.stringify(data))
+  }
+
   return (
     <section className='popular-today-section text-t-white mb-3'>
       <div className='contaienr mx-auto bg-bg-100 pb-3 rounded-md'>
@@ -34,9 +44,22 @@ const PopularToday = () => {
           {slicedWebtoonList.map((webtoon) => (
             <div key={webtoon.title} className='mx-auto w-[90%] sm:w-[70%] md:w-[90%] mb-4 xl:mb-0 hover:opacity-100 group'>
               <div className='rounded-md mb-1 overflow-hidden'>
-                <img src={webtoon.coverURL} alt="" className='rounded-md w-full cursor-pointer min-h-[243px] max-h-[243px] md:min-h-[266px] md:max-h-[266px] xl:min-h-[213px] xl:max-h-[213px] transition-all duration-300 group-hover:scale-110'/>
+                <Link to={`/manga/${webtoon.slug}`}>
+                  <img 
+                    onClick={() => handleGetWebtoonInfo(webtoon.slug, webtoon.title)}
+                    src={webtoon.coverURL} 
+                    alt={webtoon.title}
+                    className='rounded-md w-full cursor-pointer min-h-[243px] max-h-[243px] md:min-h-[266px] md:max-h-[266px] xl:min-h-[213px] xl:max-h-[213px] transition-all duration-300 group-hover:scale-110'
+                  />
+                </Link>
               </div>
-              <h2 className='font-medium text-sm mb-1 text-ellipsis overflow-hidden whitespace-nowrap lg:text-base transition-colors duration-300 group-hover:text-primary cursor-pointer'>{webtoon.title}</h2>
+              <Link to={`/manga/${webtoon.slug}`}>
+                <h2 
+                  onClick={() => handleGetWebtoonInfo(webtoon.slug, webtoon.title)}
+                  className='font-medium text-sm mb-1 text-ellipsis overflow-hidden whitespace-nowrap lg:text-base transition-colors duration-300 group-hover:text-primary cursor-pointer'>
+                    {webtoon.title}
+                </h2>
+              </Link>
               <span className='chapter text-[12px] lg:text-sm'>
                 Genre:
                 <span className='ml-1'>

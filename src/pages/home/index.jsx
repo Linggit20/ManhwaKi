@@ -4,7 +4,11 @@ import HeroSection from '../../components/hero'
 import PopularToday from '../../components/popular_today'
 import WebtoonList from '../../components/webtoon_list'
 import PopularWebtoon from '../../components/popular_webtoon'
+import usePageTitle from '../../hooks/usePageTitle'
+
 const Home = () => {
+  usePageTitle('ManwhaKi - Read Webtoons')
+
   return (
     <>
       <Header />
@@ -14,9 +18,9 @@ const Home = () => {
           <PopularToday />
           <WebtoonList />
         </main>
-        <aside className='hidden lg:block w-[30%] rounded-md'>
+        <div className=' lg:block lg:w-[30%] rounded-md'>
           <PopularWebtoon />
-        </aside>
+        </div>
       </div>
     </>
   )

@@ -6,6 +6,7 @@ import { Pagination, Autoplay} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const {fetchData, webtoonList} = fetchWebtoonLists()
@@ -29,13 +30,19 @@ const HeroSection = () => {
     sortAndSliceWebtoonList()
   }, [webtoonList])
 
+  const handleGetWebtoonInfo = (titleSlug, title) => {
+    const data = {
+      titleSlug,
+      title
+    }
 
+    localStorage.setItem('webtoonInfo', JSON.stringify(data))
+  }
 
   return (
     <section className='hero-section mb-3'>
       <div className='bg-bg-100 container mx-auto'>
         <Swiper
-          // install Swiper modules
           modules={[Pagination, Autoplay]}
           autoplay ={true}
           spaceBetween={60}
@@ -55,7 +62,13 @@ const HeroSection = () => {
                       <span className='text-[12px] absolute text-bg-300 md:text-sm'>10</span>
                     </div>
                     <div>
-                      <h1 className='font-medium text-ellipsis overflow-hidden whitespace-nowrap w-[198px] sm:w-full md:text-lg xl:text-xl'>{webtoon.title}</h1>
+                      <Link to={`/manga/${webtoon.slug}`}>
+                        <h1 
+                          onClick={() => handleGetWebtoonInfo(webtoon.slug, webtoon.title)}
+                          className='font-medium text-ellipsis overflow-hidden whitespace-nowrap w-[198px] sm:w-full md:text-lg xl:text-xl transition-colors duration-300 hover:text-primary cursor-pointer'>
+                            {webtoon.title}
+                        </h1>
+                      </Link>
                       <span className='text-yellow-300 text-[12px] md:text-sm lg:text-base'>MANHWA</span>
                     </div>
                   </div>
@@ -71,8 +84,15 @@ const HeroSection = () => {
                     </div>
                   </div>
                 </div>
-                <div className='flex-none rounded-md w-[25%] sm:flex sm:justify-end'>
-                  <img src={webtoon.coverURL} alt="" className='rounded md w-[90%] xl:w-[65%]'/>
+                <div className='flex-none rounded-md w-[25%] sm:flex sm:justify-end overflow-hidden'>
+                  <Link to={`/manga/${webtoon.slug}`}>
+                    <img 
+                      onClick={() => handleGetWebtoonInfo(webtoon.slug, webtoon.title)}
+                      src={webtoon.coverURL} 
+                      alt={webtoon.title} 
+                      className='rounded md w-[90%] xl:w-[65%] transition-all duration-300 hover:scale-110 cursor-pointer'
+                    />
+                  </Link>
                 </div>
               </div>
             </SwiperSlide>
