@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
-const WebtoonInfo = ({selectedWebtoon, webtoonSlugTitle, chapters, firstChapter, lastChapter}) => {
+const WebtoonInfo = ({selectedWebtoon, webtoonSlugTitle, chapters, firstChapter, lastChapter, handleGetWebtoonInfo}) => {
   const createdAt = new Date(selectedWebtoon.createdAt)
   const formattedCreatedAt = createdAt.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -18,12 +18,13 @@ const WebtoonInfo = ({selectedWebtoon, webtoonSlugTitle, chapters, firstChapter,
     day: 'numeric'
   })
 
+
   return (
     <>
       <div className='container mx-auto bg-bg-100 text-t-white px-4 py-2 mb-4 rounded-md'>
         <ol className='flex items-center gap-3 text-[12px] sm:text-sm'>
           <li>
-            <Link to='/' className='transition-colors duration-300 hover:text-primary'>
+            <Link to='/' className='transition-colors duration-300 hover:text-primary' >
               ManhwaKi
             </Link>
           </li>
@@ -97,14 +98,14 @@ const WebtoonInfo = ({selectedWebtoon, webtoonSlugTitle, chapters, firstChapter,
               <div>
                 <b className='block mb-2'>Genres</b>
               <div className='w-[90%]'>
-                  {selectedWebtoon.genre && Array.isArray(selectedWebtoon.genre) ? (
-                    selectedWebtoon.genre.map((genre) => (
-                      <span key={genre} className='mr-2 bg-bg-200 px-2 py-1 rounded-md inline-block mb-2'>{genre}</span>
-                    ))
-                  ) : (
-                    <span>No genres available</span>
-                  )}
-                </div>
+                {selectedWebtoon.genre && Array.isArray(selectedWebtoon.genre) ? (
+                  selectedWebtoon.genre.map((genre) => (
+                    <span key={genre} className='mr-2 bg-bg-200 px-2 py-1 rounded-md inline-block mb-2'>{genre}</span>
+                  ))
+                ) : (
+                  <span>No genres available</span>
+                )}
+              </div>
               </div>
             </div>
           </div>
@@ -116,11 +117,11 @@ const WebtoonInfo = ({selectedWebtoon, webtoonSlugTitle, chapters, firstChapter,
         </div>
         <div>
           <div className='mx-auto flex w-[90%] items-center gap-4 justify-between mb-4'>
-            <Link className='bg-primary text-center w-full rounded-md py-3 transition-opacity duration-300 hover:bg-opacity-90'>
+            <Link to={`/${firstChapter.slug}`} className='bg-primary text-center w-full rounded-md py-3 transition-opacity duration-300 hover:bg-opacity-90' onClick={() => {handleGetWebtoonInfo(firstChapter.slug)}}>
               <span className='text-[12px] md:text-sm'>First Chapter</span>
               <b className='block'>{`Chapter ${firstChapter.chapterNum}`}</b>
             </Link>
-            <Link className='bg-primary text-center w-full rounded-md py-3 transition-opacity duration-300 hover:bg-opacity-90'>
+            <Link to={`/${lastChapter.slug}`} className='bg-primary text-center w-full rounded-md py-3 transition-opacity duration-300 hover:bg-opacity-90' onClick={() => {handleGetWebtoonInfo(lastChapter.slug)}}>
               <span className='text-[12px] md:text-sm'>New Chapter</span>
               <b className='block'>{`Chapter ${lastChapter.chapterNum}`}</b>
             </Link>
@@ -129,7 +130,7 @@ const WebtoonInfo = ({selectedWebtoon, webtoonSlugTitle, chapters, firstChapter,
             <ul>
               {chapters.map((chapter, index) => (
                 <li key={index}>
-                  <Link className='border-bg-200 border rounded-md block py-3 px-4 mb-3 transition-colors duration-200 hover:bg-bg-200'> 
+                  <Link to={`/${chapter.slug}`} className='border-bg-200 border rounded-md block py-3 px-4 mb-3 transition-colors duration-200 hover:bg-bg-200' onClick={() => {handleGetWebtoonInfo(chapter.slug)}}> 
                     Chapter {chapter.chapterNum}
                   </Link>
                 </li>

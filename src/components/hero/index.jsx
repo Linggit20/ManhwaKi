@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { fetchWebtoonLists } from '../../hooks/fetchWebtoonList'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { Pagination, Autoplay} from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Link } from 'react-router-dom';
+import { Pagination, Autoplay} from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Link } from 'react-router-dom'
 
 const HeroSection = () => {
-  const {fetchData, webtoonList} = fetchWebtoonLists()
+  const { fetchData, webtoonList, isLoading } = fetchWebtoonLists() 
   const [slicedWebtoonList, setSlicedWebtoonList] = useState([])
 
   const sortAndSliceWebtoonList = () => {

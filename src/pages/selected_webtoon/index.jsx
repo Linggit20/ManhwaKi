@@ -5,6 +5,7 @@ import PopularWebtoon from '../../components/popular_webtoon'
 import WebtoonInfo from '../../components/selected_webtoon_info'
 import axios from 'axios'
 import usePageTitle from '../../hooks/usePageTitle'
+import ScrollToTopButton from '../../components/ScrollToTopButton'
 
 const SelectedWebtoon = () => {
   let { titleSlug } = useParams()
@@ -79,11 +80,21 @@ const SelectedWebtoon = () => {
     fetchData()
   }, [webtoonSlug])
 
+  console.log(chapters)
+
+  const handleGetWebtoonInfo = (selectedChapterSlug) => {
+    const data = {
+      selectedChapterSlug,
+    }
+
+    localStorage.setItem('chapterSlug', JSON.stringify(data))
+  }
 
   return (
     <>
       <Header />
       <div className='lg:flex container mx-auto lg:flex-row gap-4 mt-3'>
+        <ScrollToTopButton />
         <main className='lg:w-[70%]'>
           <WebtoonInfo 
             selectedWebtoon={selectedWebtoon} 
@@ -91,11 +102,12 @@ const SelectedWebtoon = () => {
             chapters={chapters}
             firstChapter={firstChapter}
             lastChapter={lastChapter}
+            handleGetWebtoonInfo={handleGetWebtoonInfo}
           />
         </main>
-        <aside className='lg:block lg:w-[30%] rounded-md'>
+        <div className='lg:block lg:w-[30%] rounded-md'>
           <PopularWebtoon />
-        </aside>
+        </div>
       </div>
     </>
   )
